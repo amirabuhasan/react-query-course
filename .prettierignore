@@ -1,5 +1,6 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+Viewed
+@@ -0,0 +1,24 @@
 # dependencies
 /node_modules
 /.pnp
@@ -11,9 +12,6 @@
 /cypress-coverage
 .nyc_output
 /reports
-/cypress/videos
-/cypress/results
-/cypress/screenshots
 
 # production
 /build
@@ -27,4 +25,3 @@ yarn-debug.log*
 yarn-error.log*
 
 .vscode
-.tool-versions
