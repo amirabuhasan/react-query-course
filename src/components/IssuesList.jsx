@@ -1,14 +1,31 @@
-import { Link } from "react-router-dom";
+import { useQuery } from 'react-query';
+import { IssueItem } from './IssueItem';
 
 export default function IssuesList() {
+  const issuesQuery = useQuery(['issues'], () => fetch('/api/issues').then(res => res.json()));
+  const { data } = issuesQuery;
   return (
     <div>
-      <h1>Issues List</h1>
-      <ul>
-        <li>
-          <Link to="/issue/1">Issue 1</Link>
-        </li>
-      </ul>
+      <h2>Issues List</h2>
+      {issuesQuery.isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <ul className="issues-list">
+          {data.map(issue => (
+            <IssueItem
+              assignee={issue.assignee}
+              commentCount={issue.comments.length}
+              createdBy={issue.createdBy}
+              createdDate={issue.createdDate}
+              key={issue.id}
+              labels={issue.labels}
+              number={issue.number}
+              status={issue.status}
+              title={issue.title}
+            />
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
