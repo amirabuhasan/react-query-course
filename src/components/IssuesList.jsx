@@ -3,11 +3,15 @@ import { useQuery } from 'react-query';
 import { IssueItem } from './IssueItem';
 
 export default function IssuesList({ labels, status }) {
-  const issuesQuery = useQuery(['issues', { labels, status }], () => {
-    const labelsString = labels.map(label => `labels[]=${label}`).join('&');
-    const statusString = status ? `&status=${status}` : '';
-    return fetch(`/api/issues?${labelsString}${statusString}`).then(res => res.json());
-  });
+  const issuesQuery = useQuery(
+    ['issues', { labels, status }],
+    () => {
+      const labelsString = labels.map(label => `labels[]=${label}`).join('&');
+      const statusString = status ? `&status=${status}` : '';
+      return fetch(`/api/issues?${labelsString}${statusString}`).then(res => res.json());
+    },
+    { staleTime: 1000 * 60 }
+  );
   const { data } = issuesQuery;
   const [searchValue, setSearchValue] = useState('');
 
