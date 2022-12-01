@@ -5,13 +5,13 @@ import { useUserData } from '../helpers/useUserData';
 import { IssueHeader } from './IssueHeader';
 
 function useIssueData(issueNumber) {
-  return useQuery(['issues', issueNumber], () => {
-    return fetch(`/api/issues/${issueNumber}`).then(res => res.json());
+  return useQuery(['issues', issueNumber], ({ signal }) => {
+    return fetch(`/api/issues/${issueNumber}`).then(res => res.json(), { signal });
   });
 }
 function useIssueComments(issueNumber) {
-  return useQuery(['issues', issueNumber, 'comments'], () => {
-    return fetch(`/api/issues/${issueNumber}/comments`).then(res => res.json());
+  return useQuery(['issues', issueNumber, 'comments'], ({ signal }) => {
+    return fetch(`/api/issues/${issueNumber}/comments`).then(res => res.json(), { signal });
   });
 }
 function Comment({ comment, createdBy, createdDate }) {
