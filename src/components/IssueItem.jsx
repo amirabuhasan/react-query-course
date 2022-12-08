@@ -24,10 +24,10 @@ export function IssueItem({
     <li
       key={key}
       onMouseEnter={() => {
-        queryClient.prefetchQuery(['issues', number.toString()], () =>
+        queryClient.prefetchInfiniteQuery(['issues', number.toString()], () =>
           fetchWithError(`/api/issues/${number}`)
         );
-        queryClient.prefetchQuery(['issues', number.toString(), 'comments'], () =>
+        queryClient.prefetchInfiniteQuery(['issues', number.toString(), 'comments'], () =>
           fetchWithError(`/api/issues/${number}/comments`)
         );
       }}
